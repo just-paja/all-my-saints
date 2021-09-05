@@ -8,40 +8,6 @@ on:
       - 'v*'
 
 jobs:
-  test:
-    name: Run tests
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pipenv
-          key: ${{ runner.os }}-${{ hashFiles('Pipfile.lock') }}
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - uses: dschep/install-pipenv-action@v1
-      - uses: ./.github/actions/setup-ci
-      - name: Test
-        run: pipenv run pytest --cov-report=xml --cov-config=.coveragerc --cov="."
-
-  analyze:
-    name: Run static code analysis
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pipenv
-          key: ${{ runner.os }}-${{ hashFiles('Pipfile.lock') }}
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - uses: dschep/install-pipenv-action@v1
-      - uses: ./.github/actions/setup-ci
-      - name: Static code analysis
-        run: pipenv run prospector -s high
-
   build:
     name: Build package
     runs-on: ubuntu-20.04
@@ -78,8 +44,6 @@ jobs:
     runs-on: ubuntu-20.04
     if: github.ref == 'refs/heads/master'
     needs:
-      - test
-      - analyze
       - build
     steps:
       - uses: actions/checkout@v2
