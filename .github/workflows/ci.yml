@@ -83,5 +83,5 @@ jobs:
           DJANGO_ENVIRONMENT: production
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
-          echo -e "[web]\n${{ secrets.DEPLOY_HOST }}\n" > inventory
+          echo -e "[web]\n${{ secrets.DEPLOY_HOST }} ansible_python_interpreter=/usr/bin/python3\n" > inventory
           ansible-playbook deploy.yml -i inventory
