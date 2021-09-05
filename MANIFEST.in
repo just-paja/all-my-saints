@@ -1,0 +1,7 @@
+recursive-include all_my_saints *
+recursive-include compro *
+include requirements.txt
+include README.md
+include manage.py
+global-exclude *.po
+global-exclude *.pyc
