@@ -1,0 +1,28 @@
+<!doctype html>
+
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="author" content="Reprobus">
+
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{request.build_absolute_url}}">
+  <meta property="og:description" content="{{description}}">
+
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+</head>
+
+<body>
+  {% block body %}{% endblock %}
+</body>
+</html>

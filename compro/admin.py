@@ -1,22 +1,64 @@
 from django.db.models import Sum
 from django.contrib import admin
-from .models import Team
+
+from . import models
 
 
-@admin.register(Team)
+class TeamMemberAdmin(admin.StackedInline):
+    model = models.TeamMember
+
+
+@admin.register(models.Team)
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('name', 'member_count', 'indulgence_count', 'compro_count')
+    inlines = [TeamMemberAdmin]
+    list_display = ('name', 'member_count', 'indulgence_count',
+                    'self_compro_count', 'acquired_compro_count')
+
+    def acquired_compro_count(self, inst):
+        res = inst.compro_acquisitions.aggregate(Sum('compro__value'))
+        return res['compro__value__sum']
 
     def indulgence_count(self, inst):
         res = inst.indulgences.aggregate(Sum('value'))
         return res['value__sum']
 
-    def compro_count(self, inst):
-        return inst.compro_items.count()
-
     def member_count(self, inst):
         return inst.members.count()
 
-    compro_count.short_description = 'Compro'
+    def self_compro_count(self, inst):
+        return inst.compro_items.count()
+
+    acquired_compro_count.short_description = 'Acquired Compro'
     indulgence_count.short_description = 'Indulgences'
     member_count.short_description = 'Members'
+    self_compro_count.short_description = 'Self Compro'
+
+
+@admin.register(models.Indulgence)
+class IndulgenceAdmin(admin.ModelAdmin):
+    list_display = ('team', 'value', 'comment')
+
+
+@admin.register(models.Compro)
+class TeamComproAdmin(admin.ModelAdmin):
+    list_display = ('team', 'title', 'media_count')
+
+    def media_count(self, inst):
+        return inst.media.count()
+
+
+@admin.register(models.HollyCompro)
+class HollyComproAdmin(admin.ModelAdmin):
+    list_display = ('title', 'value', 'lat', 'lng', 'acquisition_count')
+    prepopulated_fields = {'slug': ('title', )}
+
+    def acquisition_count(self, inst):
+        return inst.acquisitions.count()
+
+
+@admin.register(models.HollyComproAcquisition)
+class HollyComproAcquisitionAdmin(admin.ModelAdmin):
+    list_display = ('compro', 'team', 'value')
+
+    def value(self, inst):
+        return inst.compro.value

@@ -1,6 +1,7 @@
+from django.urls import reverse
 from django.db.models import (DateTimeField, DecimalField, ForeignKey,
                               CharField, FileField, ImageField, IntegerField,
-                              Model, TextField, RESTRICT, CASCADE)
+                              Model, SlugField, TextField, RESTRICT, CASCADE)
 
 
 class BaseModel(Model):
@@ -35,8 +36,6 @@ class Indulgence(BaseModel):
 class Compro(BaseModel):
     title = CharField(max_length=255)
     text = TextField(null=True)
-    lat = DecimalField(null=True, decimal_places=9, max_digits=12)
-    lng = DecimalField(null=True, decimal_places=9, max_digits=12)
     team = ForeignKey(
         Team,
         related_name='compro_items',
@@ -45,6 +44,27 @@ class Compro(BaseModel):
 
     def __str__(self):
         return 'Compro: %s' % self.title
+
+
+class HollyCompro(BaseModel):
+    title = CharField(max_length=255)
+    slug = SlugField()
+    text = TextField(null=True, blank=True)
+    lat = DecimalField(blank=True, null=True, decimal_places=9, max_digits=12)
+    lng = DecimalField(blank=True, null=True, decimal_places=9, max_digits=12)
+    value = IntegerField(default=1)
+
+    def get_absolute_url(self):
+        return reverse('compro_detail', kwargs={"compro_slug": self.slug})
+
+
+class HollyComproAcquisition(BaseModel):
+    team = ForeignKey(Team,
+                      related_name='compro_acquisitions',
+                      on_delete=CASCADE)
+    compro = ForeignKey(HollyCompro,
+                        related_name='acquisitions',
+                        on_delete=RESTRICT)
 
 
 class ComproMedia(BaseModel):
