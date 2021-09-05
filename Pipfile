@@ -8,6 +8,8 @@ django = "*"
 pillow = "*"
 django-storages = "*"
 requests = "*"
+gunicorn = "*"
+boto3 = "*"
 
 [dev-packages]
 flake8 = "*"

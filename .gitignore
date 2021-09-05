@@ -1,1 +1,4 @@
 *.sqlite3
+*.egg-info
+dist
+requirements.txt
