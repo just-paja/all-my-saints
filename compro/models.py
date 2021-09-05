@@ -1,6 +1,6 @@
 from django.db.models import (DateTimeField, DecimalField, ForeignKey,
-                              CharField, FileField, ImageField, Model,
-                              TextField, RESTRICT, CASCADE)
+                              CharField, FileField, ImageField, IntegerField,
+                              Model, TextField, RESTRICT, CASCADE)
 
 
 class BaseModel(Model):
@@ -14,10 +14,22 @@ class BaseModel(Model):
 class Team(BaseModel):
     name = CharField(max_length=63)
 
+    def __str__(self):
+        return 'Team %s' % self.name
+
 
 class TeamMember(BaseModel):
     name = CharField(max_length=255)
     team = ForeignKey(Team, related_name='members', on_delete=CASCADE)
+
+    def __str__(self):
+        return '%s [%s]' % (self.name, self.team)
+
+
+class Indulgence(BaseModel):
+    team = ForeignKey(Team, related_name='indulgences', on_delete=CASCADE)
+    value = IntegerField(default=1)
+    comment = TextField(null=True, blank=True)
 
 
 class Compro(BaseModel):
@@ -30,6 +42,9 @@ class Compro(BaseModel):
         related_name='compro_items',
         on_delete=RESTRICT,
     )
+
+    def __str__(self):
+        return 'Compro: %s' % self.title
 
 
 class ComproMedia(BaseModel):
