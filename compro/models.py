@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.db.models import (DateTimeField, DecimalField, ForeignKey,
-                              CharField, FileField, ImageField, IntegerField,
-                              Model, SlugField, TextField, RESTRICT, CASCADE)
+                              CharField, FileField, IntegerField, Model,
+                              SlugField, TextField, RESTRICT, CASCADE)
 
 
 class BaseModel(Model):
@@ -68,7 +68,6 @@ class HollyComproAcquisition(BaseModel):
 
 
 class DocumentationMedia(BaseModel):
-    image = ImageField(upload_to='documentation/photos')
     video = FileField(upload_to='documentation/videos')
     documentation = ForeignKey(
         Documentation,
