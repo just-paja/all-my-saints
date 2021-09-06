@@ -37,6 +37,7 @@ class TeamAdmin(admin.ModelAdmin):
 @admin.register(models.Indulgence)
 class IndulgenceAdmin(admin.ModelAdmin):
     list_display = ('team', 'value', 'comment')
+    list_filter = ('team', )
 
 
 class DocumentationMediaAdmin(admin.TabularInline):
@@ -47,6 +48,7 @@ class DocumentationMediaAdmin(admin.TabularInline):
 @admin.register(models.Documentation)
 class TeamComproAdmin(admin.ModelAdmin):
     list_display = ('team', 'title', 'media_count')
+    list_filter = ('team', )
     inlines = [DocumentationMediaAdmin]
 
     def media_count(self, inst):
