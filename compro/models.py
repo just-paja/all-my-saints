@@ -34,13 +34,13 @@ class Indulgence(BaseModel):
 
 
 class Documentation(BaseModel):
-    title = CharField(max_length=255)
-    text = TextField(null=True)
     team = ForeignKey(
         Team,
         related_name='documentation_items',
         on_delete=RESTRICT,
     )
+    title = CharField(max_length=255)
+    text = TextField(blank=True, null=True)
 
     def __str__(self):
         return 'Documentation: %s' % self.title
@@ -68,7 +68,8 @@ class HollyComproAcquisition(BaseModel):
 
 
 class DocumentationMedia(BaseModel):
-    video = FileField(upload_to='documentation/videos')
+    multimedia = FileField(upload_to='documentation',
+                           help_text='Fotka nebo video')
     documentation = ForeignKey(
         Documentation,
         related_name='media',

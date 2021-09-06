@@ -39,9 +39,14 @@ class IndulgenceAdmin(admin.ModelAdmin):
     list_display = ('team', 'value', 'comment')
 
 
+class DocumentationMediaAdmin(admin.StackedInline):
+    model = models.DocumentationMedia
+
+
 @admin.register(models.Documentation)
 class TeamComproAdmin(admin.ModelAdmin):
     list_display = ('team', 'title', 'media_count')
+    inlines = [DocumentationMediaAdmin]
 
     def media_count(self, inst):
         return inst.media.count()
