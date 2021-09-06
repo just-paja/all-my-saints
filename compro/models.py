@@ -33,17 +33,17 @@ class Indulgence(BaseModel):
     comment = TextField(null=True, blank=True)
 
 
-class Compro(BaseModel):
+class Documentation(BaseModel):
     title = CharField(max_length=255)
     text = TextField(null=True)
     team = ForeignKey(
         Team,
-        related_name='compro_items',
+        related_name='documentation_items',
         on_delete=RESTRICT,
     )
 
     def __str__(self):
-        return 'Compro: %s' % self.title
+        return 'Documentation: %s' % self.title
 
 
 class HollyCompro(BaseModel):
@@ -67,11 +67,11 @@ class HollyComproAcquisition(BaseModel):
                         on_delete=RESTRICT)
 
 
-class ComproMedia(BaseModel):
-    image = ImageField(upload_to='compro/photos')
-    video = FileField(upload_to='compro/videos')
-    compro = ForeignKey(
-        Compro,
+class DocumentationMedia(BaseModel):
+    image = ImageField(upload_to='documentation/photos')
+    video = FileField(upload_to='documentation/videos')
+    documentation = ForeignKey(
+        Documentation,
         related_name='media',
         on_delete=RESTRICT,
     )

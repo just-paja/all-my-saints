@@ -26,12 +26,12 @@ class TeamAdmin(admin.ModelAdmin):
         return inst.members.count()
 
     def self_compro_count(self, inst):
-        return inst.compro_items.count()
+        return inst.documentation_items.count()
 
-    acquired_compro_count.short_description = 'Acquired Compro'
+    acquired_compro_count.short_description = 'Acquired Documentation'
     indulgence_count.short_description = 'Indulgences'
     member_count.short_description = 'Members'
-    self_compro_count.short_description = 'Self Compro'
+    self_compro_count.short_description = 'Self Documentation'
 
 
 @admin.register(models.Indulgence)
@@ -39,7 +39,7 @@ class IndulgenceAdmin(admin.ModelAdmin):
     list_display = ('team', 'value', 'comment')
 
 
-@admin.register(models.Compro)
+@admin.register(models.Documentation)
 class TeamComproAdmin(admin.ModelAdmin):
     list_display = ('team', 'title', 'media_count')
 
