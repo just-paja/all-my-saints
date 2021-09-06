@@ -1,14 +1,21 @@
 from django.shortcuts import render
 from django.http import Http404
+from django.conf import settings
 
 from .models import HollyCompro
 
 
 def home(request):
-    return render(request, 'home.html', {
+    context = {
         'title': 'Reprobus systems',
         'description': 'Welcome to reprobus systems'
-    })
+    }
+    if request.method == 'POST':
+        if request.POST['password'] == settings.REPRO_PASSWORD:
+            context['success'] = 'Přihlášení úspěšné'
+        else:
+            context['failure'] = 'Špatné heslo soryjako.'
+    return render(request, 'home.html', context)
 
 
 def compro(request, compro_slug):
