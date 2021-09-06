@@ -68,7 +68,7 @@ class HollyComproAcquisition(BaseModel):
 
 
 class DocumentationMedia(BaseModel):
-    multimedia = FileField(upload_to='documentation',
+    multimedia = FileField(upload_to='documentation/%Y-%m-%d',
                            help_text='Fotka nebo video')
     documentation = ForeignKey(
         Documentation,
