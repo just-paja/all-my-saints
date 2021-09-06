@@ -10,6 +10,8 @@ def home(request):
         'title': 'Reprobus systems',
         'description': 'Welcome to reprobus systems'
     }
+    if request.user and request.user.id:
+        return redirect('/admin/compro/documentation/add/')
     if request.method == 'POST':
         user = authenticate(username='optimics-anonymous',
                             password=request.POST['password'])
