@@ -41,6 +41,7 @@ class IndulgenceAdmin(admin.ModelAdmin):
 
 class DocumentationMediaAdmin(admin.TabularInline):
     model = models.DocumentationMedia
+    extra = 1
 
 
 @admin.register(models.Documentation)
