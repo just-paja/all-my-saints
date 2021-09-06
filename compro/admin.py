@@ -39,7 +39,7 @@ class IndulgenceAdmin(admin.ModelAdmin):
     list_display = ('team', 'value', 'comment')
 
 
-class DocumentationMediaAdmin(admin.StackedInline):
+class DocumentationMediaAdmin(admin.TabularInline):
     model = models.DocumentationMedia
 
 
