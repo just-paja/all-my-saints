@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404
-from django.conf import settings
+from django.contrib.auth import authenticate, login
 
 from .models import HollyCompro
 
@@ -11,8 +11,11 @@ def home(request):
         'description': 'Welcome to reprobus systems'
     }
     if request.method == 'POST':
-        if request.POST['password'] == settings.REPRO_PASSWORD:
-            context['success'] = 'Přihlášení úspěšné'
+        user = authenticate(username='optimics-anonymous',
+                            password=request.POST['password'])
+        if user:
+            login(request, user)
+            return redirect('/admin/compro/compro/add/')
         else:
             context['failure'] = 'Špatné heslo soryjako.'
     return render(request, 'home.html', context)
