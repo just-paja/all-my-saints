@@ -54,10 +54,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: requirements
-      - name: Validate deploy configuration
-        uses: ansible/ansible-lint-action@master
-        with:
-          targets: deploy.yml
       - name: Configure SSH
         uses: shimataro/ssh-key-action@v2
         with:
@@ -68,7 +64,7 @@ jobs:
         run: |
           sudo apt-get -y install python3-docker python3-requests
           ansible-galaxy install -r requirements-ansible.yml
-          sudo pip install requests docker
+          sudo pip install requests docker ansible
       - name: Deploy staging app
         env:
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
