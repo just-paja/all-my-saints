@@ -34,13 +34,15 @@ class Indulgence(BaseModel):
 
 
 class Documentation(BaseModel):
-    team = ForeignKey(
-        Team,
-        related_name='documentation_items',
-        on_delete=RESTRICT,
-    )
-    title = CharField(max_length=255)
-    text = TextField(blank=True, null=True)
+    team = ForeignKey(Team,
+                      related_name='documentation_items',
+                      on_delete=RESTRICT,
+                      help_text='Ke kterému týmu patříš?')
+    title = CharField(max_length=255,
+                      help_text='Popiš dokument který nahráváš v pár slovech')
+    text = TextField(blank=True,
+                     null=True,
+                     help_text='Pokud chceš, napiš nám k tomu příběh')
 
     def __str__(self):
         return 'Documentation: %s' % self.title
@@ -69,7 +71,7 @@ class HollyComproAcquisition(BaseModel):
 
 class DocumentationMedia(BaseModel):
     multimedia = FileField(upload_to='documentation/%Y-%m-%d',
-                           help_text='Fotka nebo video')
+                           help_text='Nahraj fotku nebo video')
     documentation = ForeignKey(
         Documentation,
         related_name='media',
