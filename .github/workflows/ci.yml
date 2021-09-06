@@ -60,11 +60,20 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           name: id_rsa
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pipenv
+          key: ${{ runner.os }}-${{ hashFiles('Pipfile.lock') }}
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - uses: dschep/install-pipenv-action@v1
+      - uses: ./.github/actions/setup-ci
       - name: Install deploy dependencies
         run: |
           sudo apt-get -y install python3-docker python3-requests
           ansible-galaxy install -r requirements-ansible.yml
-          sudo pip3 install requests docker ansible
+          pipenv install requests docker ansible
       - name: Deploy staging app
         env:
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
@@ -80,4 +89,4 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           echo -e "[web]\n${{ secrets.DEPLOY_HOST }} ansible_python_interpreter=/usr/bin/python3\n" > inventory
-          ansible-playbook deploy.yml -i inventory
+          pipenv run ansible-playbook deploy.yml -i inventory

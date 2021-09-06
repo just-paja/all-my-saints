@@ -10,10 +10,12 @@ django-storages = "*"
 requests = "*"
 gunicorn = "*"
 boto3 = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 flake8 = "*"
 yapf = "*"
+ansible = "*"
 
 [requires]
 python_version = "3.9"

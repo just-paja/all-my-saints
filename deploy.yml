@@ -5,7 +5,7 @@
     - role: practical-ansible.nginx_docker
       admin_email: pavel@zak.global
       become: true
-      project_environment: '{{ lookup("env", "DJANGO_ENVIRONMENT") }}'
+      project_environment: staging
       project_name: 'systems-reprobus'
       server_names: '{{ lookup("env", "ALLOWED_HOSTS") }}'
       client_max_body_size: 2G
