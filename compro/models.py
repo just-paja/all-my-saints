@@ -75,5 +75,5 @@ class DocumentationMedia(BaseModel):
     documentation = ForeignKey(
         Documentation,
         related_name='media',
-        on_delete=RESTRICT,
+        on_delete=CASCADE,
     )
