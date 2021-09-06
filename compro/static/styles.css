@@ -1,0 +1,12 @@
+.cookies {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.cookies p {
+  padding: 0.5rem;
+  text-align: center;
+  margin: 0;
+}
