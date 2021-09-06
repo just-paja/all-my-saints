@@ -15,7 +15,7 @@ def home(request):
                             password=request.POST['password'])
         if user:
             login(request, user)
-            return redirect('/admin/compro/compro/add/')
+            return redirect('/admin/compro/documentation/add/')
         else:
             context['failure'] = 'Špatné heslo soryjako.'
     return render(request, 'home.html', context)
