@@ -1,7 +1,35 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block body %}
 
-foo
+<div class="container news">
+  <header>
+    <div class="site-title">
+      <span class="site-title-text">
+        Boží pravda
+      </span>
+    </div>
+  </header>
+
+  <div>
+    <div class="news-perex">
+      <h1>{{title}}</h1>
+      <div class="news-date">
+        <date>{{date}}</date>
+      </div>
+      <p>{{perex}}</p>
+    </div>
+
+    <div>
+      <div>
+        <img class="news-image" src="{% static 'heaven.jpg' %}" />
+      </div>
+      <span>Fotografie z incidentu</span>
+    </div>
+
+  </div>
+</div>
 
 {% endblock %}

@@ -28,8 +28,11 @@ def compro(request, compro_slug):
         compro = HollyCompro.objects.get(slug=compro_slug)
     except HollyCompro.DoesNotExist:
         raise Http404
-    return render(request, 'news.html', {
-        'title': compro.title,
-        'description': compro.text,
-        'compro': compro
-    })
+    return render(
+        request, 'news.html', {
+            'compro': compro,
+            'date': compro.created_at,
+            'description': compro.text,
+            'perex': compro.text,
+            'title': compro.title,
+        })

@@ -10,3 +10,59 @@
   text-align: center;
   margin: 0;
 }
+
+.container.news {
+  max-width: 64rem;
+}
+
+.site-title {
+  border-bottom: 0.15rem #8c2326 solid;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.site-title-text {
+  display: flex;
+  align-items: center;
+  font-size: 64px;
+  font-family: sans;
+}
+
+.site-title-text:before {
+  content: ' ';
+  display: block;
+  background: url(/static/god-icon.png);
+  width: 72px;
+  height: 72px;
+  background-position: center center;
+  background-size: contain;
+  margin-right: 1rem;
+}
+
+.news {
+  font-family: Georgia, serif;
+}
+
+.news-image {
+  max-width: 700px;
+  width: 100%;
+}
+
+.news h1,
+.news-date,
+.news-perex {
+  margin-bottom: 1rem;
+}
+
+.news-date {
+  font-size: 0.9rem;
+}
+
+.news p {
+  font-size: 1.2rem;
+}
+
+.news-perex p {
+  color: #8c2326;
+}
