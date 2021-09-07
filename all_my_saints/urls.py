@@ -23,7 +23,7 @@ from compro import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
-    path('compro/<slug:compro_slug>', views.compro, name='compro_detail'),
+    path('novinky/<slug:compro_slug>', views.news, name='compro_detail'),
 ]
 
 if settings.DEBUG:

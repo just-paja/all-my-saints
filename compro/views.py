@@ -23,11 +23,13 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def compro(request, compro_slug):
+def news(request, compro_slug):
     try:
         compro = HollyCompro.objects.get(slug=compro_slug)
     except HollyCompro.DoesNotExist:
         raise Http404
+    if request.user.is_superuser:
+        return redirect('/admin')
     return render(
         request, 'news.html', {
             'compro': compro,
