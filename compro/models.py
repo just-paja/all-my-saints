@@ -59,6 +59,9 @@ class HollyCompro(BaseModel):
     def get_absolute_url(self):
         return reverse('compro_detail', kwargs={"compro_slug": self.slug})
 
+    def __str__(self):
+        return self.title
+
 
 class HollyComproAcquisition(BaseModel):
     team = ForeignKey(Team,

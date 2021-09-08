@@ -11,6 +11,7 @@ requests = "*"
 gunicorn = "*"
 boto3 = "*"
 psycopg2-binary = "*"
+loremipsum = "*"
 
 [dev-packages]
 flake8 = "*"

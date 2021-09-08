@@ -1,8 +1,29 @@
+import os
+
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.contrib.auth import authenticate, login
+from loremipsum import Generator
 
 from .models import HollyCompro
+
+
+def get_holly_text():
+    sample_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                               'sample.txt')
+    dictionary_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                   'dictionary.txt')
+    sample_txt = open(sample_path, 'r')
+    sample = sample_txt.read()
+
+    dictionary_txt = open(dictionary_path, 'r')
+    dictionary = dictionary_txt.read().split()
+    sample_txt.close()
+    dictionary_txt.close()
+
+    g = Generator(sample, dictionary)
+    paragraph = g.generate_paragraph()
+    return paragraph[2]
 
 
 def home(request):
@@ -29,12 +50,14 @@ def news(request, compro_slug):
     except HollyCompro.DoesNotExist:
         raise Http404
     if request.user.is_superuser:
-        return redirect('/admin')
+        return redirect('/admin/compro/hollycomproacquisition/add/?compro=%s' %
+                        compro.pk)
     return render(
         request, 'news.html', {
             'compro': compro,
             'date': compro.created_at,
             'description': compro.text,
             'perex': compro.text,
+            'text': get_holly_text(),
             'title': compro.title,
         })
