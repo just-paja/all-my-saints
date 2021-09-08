@@ -58,7 +58,7 @@ def news(request, compro_slug):
         request, 'news.html', {
             'compro': compro,
             'date': compro.created_at,
-            'description': compro.text,
+            'description': compro.text or get_holly_text(),
             'perex': compro.text,
             'text': get_holly_text(),
             'title': compro.title,
