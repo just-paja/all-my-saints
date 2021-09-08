@@ -12,6 +12,7 @@ gunicorn = "*"
 boto3 = "*"
 psycopg2-binary = "*"
 loremipsum = "*"
+qrcode = "*"
 
 [dev-packages]
 flake8 = "*"

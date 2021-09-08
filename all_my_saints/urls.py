@@ -23,6 +23,9 @@ from compro import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
+    path('novinky/<slug:compro_slug>/qr.svg',
+         views.news_qr,
+         name='compro_detail_qr'),
     path('novinky/<slug:compro_slug>', views.news, name='compro_detail'),
 ]
 

@@ -1,7 +1,9 @@
 import os
+import qrcode
+import qrcode.image.svg
 
 from django.shortcuts import render, redirect
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.contrib.auth import authenticate, login
 from loremipsum import Generator
 
@@ -61,3 +63,18 @@ def news(request, compro_slug):
             'text': get_holly_text(),
             'title': compro.title,
         })
+
+
+def news_qr(request, compro_slug):
+    try:
+        compro = HollyCompro.objects.get(slug=compro_slug)
+    except HollyCompro.DoesNotExist:
+        raise Http404
+    factory = qrcode.image.svg.SvgImage
+    img = qrcode.make('https://%s%s' %
+                      (request.META['HTTP_HOST'], compro.get_absolute_url()),
+                      image_factory=factory,
+                      box_size=64)
+    response = HttpResponse(content_type="image/svg+xml")
+    img.save(response)
+    return response
